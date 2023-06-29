@@ -236,10 +236,13 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Category\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -253,6 +256,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClothBazar.Database\ClothBazar.Database.csproj">
+      <Project>{6af36720-da6f-4e3a-aaf4-933674a00ea6}</Project>
+      <Name>ClothBazar.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClothBazar.Entities\ClothBazar.Entities.csproj">
+      <Project>{3ddb13be-2356-4b57-8a21-a7cd070b7af5}</Project>
+      <Name>ClothBazar.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClothBazar.Services\ClothBazar.Services.csproj">
+      <Project>{f5d469dc-c777-4647-afbc-cd88a62d43a8}</Project>
+      <Name>ClothBazar.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
