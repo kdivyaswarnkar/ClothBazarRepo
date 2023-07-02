@@ -1,19 +1,20 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Index";
 }
 
-<div id="tableContainer">
+<div class="container">
+    <div id="tableContainer">
 
-    @{
-        Html.RenderAction("ProductTable");
+        @{
+            Html.RenderAction("ProductTable");
 
-        //Html.RenderAction("Create");
-    }
-</div>
+            //Html.RenderAction("Create");
+        }
+    </div>
 
-<div id="actionContainer">
-    @*@{
-            Html.RenderAction("Create");
-        }*@
-
+    <hr />
+    <div id="actionContainer">
+      
+    </div>
 </div>
