@@ -26,26 +26,29 @@
 
 
     <!-- Favicon and touch icons  -->
-    <link href="favicon.ico" rel="shortcut icon">
+    <link href="~/favicon.ico" rel="shortcut icon">
 
     <!--[if lt IE 9]>
         <script src="javascript/html5shiv.js"></script>
         <script src="javascript/respond.min.js"></script>
     <![endif]-->
+
+    <script src="~/Content/javascript/jquery.min.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    @*<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery")*@
 
 </head>
 <body class="header_sticky header-style-1 has-menu-extra">
     <!-- Preloader -->
     @*<div id="loading-overlay">
-        <div class="loader"></div>
-    </div>*@
+            <div class="loader"></div>
+        </div>*@
 
     <!-- Boxed -->
     <div class="boxed">
@@ -55,7 +58,11 @@
                 <div class="container clearfix" id="site-header-inner">
                     <div id="logo" class="logo float-left">
                         <a href="index.html" title="logo">
-                            <img src="~/Content/images/logo.png" alt="image" width="107" height="24" data-retina="images/logo@2x.png" data-width="107" data-height="24">
+                            <img src="~/Content/images/logo@2x.png" alt="image" width="107" height="24"/>
+                            @*<img src="~/Content/images/logo@2x.png" alt="image"
+                                 width="107" height="24" data-retina="~/Content/images/logo@2x.png"
+                                 data-width="107" data-height="24" />*@
+
                         </a>
                     </div><!-- /.logo -->
                     <div class="mobile-button"><span></span></div>
@@ -240,8 +247,8 @@
                             </div>
                             <ul class="flat-contact">
                                 <li class="address">112 Kingdom, NA 12, New York</li>
-                                <li class="phone">+12 345 678 910</li>
-                                <li class="email">infor.deercreative@gmail.com</li>
+                                <li class="phone">+91 9131881358</li>
+                                <li class="email">clothstore@gmail.com</li>
                             </ul><!-- /.flat-contact -->
                         </div><!-- /.widget -->
                     </div><!-- /.col-md-3 -->
@@ -253,7 +260,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="copyright text-center">Copyright  <a href="#">Modaz</a></p>
+                        <p class="copyright text-center">Copyright <a href="#">@@ClothStore.2023</a></p>
                     </div>
                 </div>
             </div>
@@ -267,5 +274,43 @@
     </div>
 
     @* @RenderSection("scripts", required: false)*@
+    <!-- Javascript -->
+    <script src="~/Content/javascript/jquery.min.js"></script>
+    <script src="~/Content/javascript/tether.min.js"></script>
+    <script src="~/Content/javascript/bootstrap.min.js"></script>
+    <script src="~/Content/javascript/jquery.easing.js"></script>
+    <script src="~/Content/javascript/parallax.js"></script>
+    <script src="~/Content/javascript/jquery-waypoints.js"></script>
+    <script src="~/Content/javascript/jquery-countTo.js"></script>
+    <script src="~/Content/javascript/jquery.countdown.js"></script>
+    <script src="~/Content/javascript/jquery.flexslider-min.js"></script>
+    <script src="~/Content/javascript/images-loaded.js"></script>
+    <script src="~/Content/javascript/jquery.isotope.min.js"></script>
+    <script src="~/Content/javascript/magnific.popup.min.js"></script>
+    <script src="~/Content/javascript/jquery.hoverdir.js"></script>
+    <script src="~/Content/javascript/owl.carousel.min.js"></script>
+    <script src="~/Content/javascript/equalize.min.js"></script>
+    <script src="~/Content/javascript/gmap3.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEU6OT3xqCksCetQeNLIPps6-AYrhq-s&region=GB"></script>
+    <script src="~/Content/javascript/jquery-ui.js"></script>
+
+    <script src="~/Content/javascript/jquery.cookie.js"></script>
+    <script src="~/Content/javascript/main.js"></script>
+
+    <!-- Revolution Slider -->
+    <script src="~/Content/rev-slider/js/jquery.themepunch.tools.min.js"></script>
+    <script src="~/Content/rev-slider/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="~/Content/javascript/rev-slider.js"></script>
+    <!-- Load Extensions only on Local File Systems ! The following part can be removed on Server for On Demand Loading -->
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.actions.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.carousel.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.kenburn.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.migration.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.parallax.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.video.min.js"></script>
+
 </body>
 </html>

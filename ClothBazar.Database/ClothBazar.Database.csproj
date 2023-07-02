@@ -55,6 +55,10 @@
     <Compile Include="Migrations\202306291419020_Intalizd.Designer.cs">
       <DependentUpon>202306291419020_Intalizd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202307011350147_ImageURLAdded.cs" />
+    <Compile Include="Migrations\202307011350147_ImageURLAdded.Designer.cs">
+      <DependentUpon>202307011350147_ImageURLAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -71,6 +75,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202306291419020_Intalizd.resx">
       <DependentUpon>202306291419020_Intalizd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307011350147_ImageURLAdded.resx">
+      <DependentUpon>202307011350147_ImageURLAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

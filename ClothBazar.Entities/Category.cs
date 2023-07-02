@@ -8,7 +8,7 @@ namespace ClothBazar.Entities
 {
     public class Category :BaseEntity
     {
-      
+        public string ImageURL { get; set; }
         //one category multiple products
         public List<Product> Products { get; set; }
 

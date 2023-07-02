@@ -1,12 +1,11 @@
 ﻿
-@Scripts.Render("~/bundles/jquery")
+@*@Scripts.Render("~/bundles/jquery")*@
 
 @model List<Product>
 @{
     ViewBag.Title = "ProductTable";
-   
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 
 <div id="seachContainer">
@@ -17,8 +16,7 @@
     <button type="button" id="newBtn">New</button>
 </div>
 
-<div id="tableContainer">
-
+<div>
     <table>
         <thead>
             <tr>
@@ -43,12 +41,14 @@
             }
         </tbody>
     </table>
-
-
 </div>
-<div id="actionContainer">
 
-</div>
+@*<div id="actionContainer">
+        @{
+                Html.RenderAction("Create");
+            }
+
+    </div>*@
 
 <script type="text/javascript">
 
@@ -64,7 +64,7 @@
             })
                 .done(function (response) {
                     $("#tableContainer").html(response);
-                    $("#seachContainer").html("");
+                    //$("#seachContainer").html("");
                 })
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("FAIL");
@@ -113,7 +113,7 @@
                 })
                     .done(function (response) {
                         $("#tableContainer").html(response);
-                        $("#seachContainer").html("");
+                        //$("#seachContainer").html("");
                     })
                     .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                         alert("FAIL");
@@ -125,5 +125,4 @@
 
 
 </script>
-
 
