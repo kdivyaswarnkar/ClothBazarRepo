@@ -19,12 +19,15 @@
         <img id="categoryImage" />
     </div>
     <br />
+    <label>Is Featured?</label>
+    <input name="isFeatured" type="radio" value="True" /> True
+    <input name="isFeatured" type="radio" value="False" /> False
+    <br />
     <button type="submit">Save</button>
 </form>
 
 <script>
 	$("#imageUpload").change(function () {
-		debugger;
 		var element = this;
 		var formData = new FormData();
 		var totalFiles = element.files.length;
@@ -41,7 +44,7 @@
 			processData: false
 		})
         .done(function (response) {
-        	debugger;
+        	
         	console.log(response);
         	if(response.Success)
         	{
