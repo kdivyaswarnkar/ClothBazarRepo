@@ -1,31 +1,34 @@
-﻿@model Product
+﻿@model EditProductViewModel
 @{
     ViewBag.Title = "Edit";
-   // Layout = "~/Views/Shared/_Layout.cshtml";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Edit Product</h2>
-
-<form id="editProduct" method="post">
-
-    <input type="hidden" name="ID" value="@Model.ID" />
-
+<form>
+<div class="form-group">
+    <label>Category</label>
+    <select class="form-control" name="CategoryID">
+        @foreach (var category in Model.AvailableCategories)
+        {
+            var selected = category.ID == Model.CategoryID ? "selected" : string.Empty;
+            <option value="@category.ID" @selected>@category.Name</option>
+        }
+    </select>
+</div>
+<div class="form-group">
     <label>Name</label>
-    <input name="Name" value="@Model.Name" />
-
-    <br />
-
+    <input class="form-control" name="Name" value="@Model.Name" />
+</div>
+<div class="form-group">
     <label>Description</label>
-    <input name="Description" value="@Model.Description" />
-
-    <br />
-
+    <input class="form-control" name="Description" value="@Model.Description" />
+</div>
+<div class="form-group">
     <label>Price</label>
-    <input name="Price" value="@Model.Price" />
-
-    <br />
-
-    <button id="updateBtn" type="submit">Update</button>
+    <input class="form-control" name="Price" value="@Model.Price" />
+</div>
+<button id="updateBtn" type="button" class="btn btn-primary">Update</button>
 </form>
 
 
