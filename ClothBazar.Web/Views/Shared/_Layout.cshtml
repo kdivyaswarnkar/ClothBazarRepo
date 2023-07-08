@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿﻿@{
+    ConfigurationsService configurationsService = new ConfigurationsService();
+}
+<!DOCTYPE html>
 <html>
 <head>
     <!-- Basic Page Needs -->
@@ -39,9 +42,9 @@
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
     @*<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")*@
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")*@
 
 </head>
 <body class="header_sticky header-style-1 has-menu-extra">
@@ -195,7 +198,7 @@
                                 </div>
                             </form>
                             <ul class="flat-social">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="@configurationsService.GetConfig("FacebookURL").Value"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google"></i></a></li>
                                 <li><a href="#"><i class="fa fa-behance"></i></a></li>
@@ -246,8 +249,8 @@
                                 <a href="index.html"><img src="~/Content/images/logo@2x.png" alt="image" width="107" height="24"></a>
                             </div>
                             <ul class="flat-contact">
-                                <li class="address">112 Kingdom, NA 12, New York</li>
-                                <li class="phone">+91 9131881358</li>
+                                <li class="address">@configurationsService.GetConfig("CompanyAddress").Value</li>
+                                <li class="phone">@configurationsService.GetConfig("CompanyPhone").Value</li>
                                 <li class="email">clothstore@gmail.com</li>
                             </ul><!-- /.flat-contact -->
                         </div><!-- /.widget -->

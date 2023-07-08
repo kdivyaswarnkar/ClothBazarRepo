@@ -14,5 +14,6 @@ namespace ClothBazar.Database
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public IEnumerable<object> FeaturedCategories { get; set; }
+        public DbSet<Config> Configurations { get; set; }
     }
 }
