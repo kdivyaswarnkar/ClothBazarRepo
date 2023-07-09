@@ -11,6 +11,21 @@ namespace ClothBazar.Services
 {
     public class ProductService
     {
+
+        #region Singleton
+        public static ProductService Instance
+        {
+            get
+            {
+                if (instance == null) instance = new ProductService();
+                return instance;
+            }
+        }
+        private static ProductService instance { get; set; }
+        private ProductService()
+        {
+        }
+        #endregion
         public Product GetProduct(int ID)
         {
             using (var context = new CBContext())
@@ -26,14 +41,19 @@ namespace ClothBazar.Services
                 return context.Products.Where(product => IDs.Contains(product.ID)).ToList();
             }
         }
-        public List<Product> GetProducts()
+        public List<Product> GetProducts(int pageNo)
         {
             // var context = new CBContext();
             // return context.Products.ToList();
+            int pageSize = 5;
             using (var context = new CBContext())
             {
+                //return context.Products.OrderBy(x=>x.ID).Skip((pageNo-1)* pageSize).Take(pageSize).Include(x => x.Category).ToList();
                 return context.Products.Include(x => x.Category).ToList();
+                
             }
+
+
         }
 
         public void SaveProduct(Product product)

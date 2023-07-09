@@ -33,6 +33,8 @@ namespace ClothBazar.Web.Controllers
             return PartialView("CategoryTable",model);
         }
 
+
+        #region Creation
         [HttpGet]
         public ActionResult Create()
         {
@@ -54,6 +56,10 @@ namespace ClothBazar.Web.Controllers
             categoryService.SaveCategory(newCategory);
             return RedirectToAction("CategoryTable");
         }
+
+        #endregion
+
+        #region Updation
 
         [HttpGet]
         public ActionResult Edit(int ID)
@@ -82,18 +88,25 @@ namespace ClothBazar.Web.Controllers
             return RedirectToAction("CategoryTable");
         }
 
+
+        #endregion
+
+        #region Deletion
         //[HttpGet]
         //public ActionResult Delete(int ID)
         //{
         //    var category = categoryService.GetCategory(ID);
         //    return View(category);
         //}
+
+
         [HttpPost]
         public ActionResult Delete(int ID)
         {
             categoryService.DeleteCategory(ID);
             return RedirectToAction("CategoryTable");
         }
+        #endregion
 
     }
 }

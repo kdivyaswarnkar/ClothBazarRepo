@@ -69,10 +69,11 @@
 
 
 <script type="text/javascript">
-
+   
     $(document).ready(function () {
-
+        
         $("#searchBtn").click(function () {
+            
             var searchValue = $("#searchTxt").val();
             $.ajax({
                // url: '/Category/CategoryTable',
@@ -83,7 +84,7 @@
             })
                 .done(function (response) {
                     $("#tableContainer").html(response);
-                    $("#seachContainer").html("");
+                 //   $("#seachContainer").html("");
                 })
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("FAIL");

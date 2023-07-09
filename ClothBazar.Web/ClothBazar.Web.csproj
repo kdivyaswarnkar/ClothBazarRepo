@@ -433,6 +433,10 @@
     <Content Include="Content\javascript\rev-slider.js" />
     <Content Include="Content\javascript\switcher.js" />
     <Content Include="Content\javascript\tether.min.js" />
+    <Content Include="Content\jquery\jquery.js" />
+    <Content Include="Content\jquery\jquery.min.js" />
+    <Content Include="Content\jquery\jquery.slim.js" />
+    <Content Include="Content\jquery\jquery.slim.min.js" />
     <Content Include="Content\rev-slider\assets\coloredbg.png" />
     <Content Include="Content\rev-slider\assets\gridtile.png" />
     <Content Include="Content\rev-slider\assets\gridtile_3x3.png" />
@@ -518,6 +522,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="lib\datatables.net\jquery.dataTables.js" />
+    <Content Include="lib\datatables.net\jquery.dataTables.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="libman.json" />
@@ -538,6 +544,8 @@
     <Content Include="Content\sweetalert\sweet-alert-animations.less" />
     <Content Include="Content\bootstrap\variables.less" />
     <Content Include="Content\bootstrap\mixins.less" />
+    <Content Include="Content\jquery\jquery.min.map" />
+    <Content Include="Content\jquery\jquery.slim.min.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

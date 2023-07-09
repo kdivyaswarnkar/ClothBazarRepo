@@ -1,5 +1,14 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-  "libraries": []
+  "libraries": [
+    {
+      "library": "jquery@3.7.0",
+      "destination": "Content/jquery/"
+    },
+    {
+      "library": "datatables.net@2.1.1",
+      "destination": "lib/datatables.net/"
+    }
+  ]
 }

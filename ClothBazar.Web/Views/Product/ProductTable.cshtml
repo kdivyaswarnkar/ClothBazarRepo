@@ -1,4 +1,9 @@
 ﻿<script src="~/Content/javascript/jquery.min.js"></script>
+
+@*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>*@
+<script src="~/Content/jquery/jquery.min.js"></script>
+<script src="~/lib/datatables.net/jquery.dataTables.min.js"></script>
 @model ProductSearchViewModel
 @{
     ViewBag.Title = "ProductTable";
@@ -32,7 +37,7 @@
 
 
 <div>
-    <table class="table table-striped">
+    <table id="ProductsTable" class="table table-striped">
         <thead>
             <tr>
                 <td>Product Name</td>
@@ -75,6 +80,13 @@
             }
         </tbody>
     </table>
+    <div>
+        @*@if (Model.PageNo != 1)
+            {
+                <button class="pageButtons" data-pageNo="@(Model.PageNo - 1)">Previous</button>
+            }
+            <button class="pageButtons" data-pageNo="@(Model.PageNo + 1)">Next</button>*@
+    </div>
 </div>
 
 
@@ -82,6 +94,24 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+    
+        $('#ProductsTable').DataTable();
+        $(".pageButtons").click(function () {
+            $.ajax({
+                url: '/Product/ProductTable',
+                data: {
+                    pageNo: $(this).attr("data-pageNo")
+                }
+            })
+                .done(function (response) {
+                    $("#tableContainer").html(response);
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("FAIL");
+                });
+        });
+
 
         $("#searchBtn").click(function () {
 
