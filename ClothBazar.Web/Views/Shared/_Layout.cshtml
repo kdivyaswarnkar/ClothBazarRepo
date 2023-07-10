@@ -1,5 +1,5 @@
 ﻿﻿@{
-    ConfigurationsService configurationsService = new ConfigurationsService();
+    // ConfigurationsService configurationsService = new ConfigurationsService();
 }
 <!DOCTYPE html>
 <html>
@@ -36,18 +36,14 @@
         <script src="javascript/respond.min.js"></script>
     <![endif]-->
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
     <script src="~/Content/javascript/jquery.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
-    @*<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-        @Scripts.Render("~/bundles/jquery")*@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
-
 
 </head>
 <body class="header_sticky header-style-1 has-menu-extra">
@@ -201,7 +197,7 @@
                                 </div>
                             </form>
                             <ul class="flat-social">
-                                <li><a href="@configurationsService.GetConfig("FacebookURL").Value"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="@ConfigurationsService.Instance.GetConfig("FacebookURL").Value"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google"></i></a></li>
                                 <li><a href="#"><i class="fa fa-behance"></i></a></li>
@@ -252,8 +248,8 @@
                                 <a href="index.html"><img src="~/Content/images/logo@2x.png" alt="image" width="107" height="24"></a>
                             </div>
                             <ul class="flat-contact">
-                                <li class="address">@configurationsService.GetConfig("CompanyAddress").Value</li>
-                                <li class="phone">@configurationsService.GetConfig("CompanyPhone").Value</li>
+                                <li class="address">@ConfigurationsService.Instance.GetConfig("CompanyAddress").Value</li>
+                                <li class="phone">@ConfigurationsService.Instance.GetConfig("CompanyPhone").Value</li>
                                 <li class="email">clothstore@gmail.com</li>
                             </ul><!-- /.flat-contact -->
                         </div><!-- /.widget -->

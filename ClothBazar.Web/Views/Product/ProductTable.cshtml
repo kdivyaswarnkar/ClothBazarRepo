@@ -1,9 +1,5 @@
 ﻿<script src="~/Content/javascript/jquery.min.js"></script>
-
-@*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>*@
 <script src="~/Content/jquery/jquery.min.js"></script>
-<script src="~/lib/datatables.net/jquery.dataTables.min.js"></script>
 @model ProductSearchViewModel
 @{
     ViewBag.Title = "ProductTable";
@@ -22,10 +18,13 @@
                 <div class="form-group">
                     <label>Action</label>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4 pr-0">
                             <button class="btn btn-primary form-control" type="button" id="searchBtn">Search</button>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4 pr-0">
+                            <button class="btn btn-primary form-control" type="button" id="resetBtn">Reset</button>
+                        </div>
+                        <div class="col-md-4 pr-0">
                             <button class="btn btn-primary form-control" type="button" id="newBtn">New</button>
                         </div>
                     </div>
@@ -40,10 +39,10 @@
     <table id="ProductsTable" class="table table-striped">
         <thead>
             <tr>
-                <td>Product Name</td>
-                <td>Category</td>
-                <td>Price</td>
-                <td class="wrap-td">Actions</td>
+                <th class="font-weight-bold">Product Name</th>
+                <th class="font-weight-bold">Category</th>
+                <th class="font-weight-bold">Price</th>
+                <th class="font-weight-bold wrap-td">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -94,12 +93,10 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
-    
-        $('#ProductsTable').DataTable();
+        $("#ProductsTable").DataTable();
         $(".pageButtons").click(function () {
             $.ajax({
-                url: '/Product/ProductTable',
+                url: '@Url.Action("ProductTable", "Product")',
                 data: {
                     pageNo: $(this).attr("data-pageNo")
                 }
@@ -117,7 +114,7 @@
 
             var searchValue = $("#searchTxt").val();
             $.ajax({
-                url: '/Product/ProductTable',
+                url:'@Url.Action("ProductTable", "Product")',
                 data: {
                     search: searchValue
                 }
@@ -131,13 +128,30 @@
                 });
         });
 
+        $("#resetBtn").click(function () {
+		var searchValue = '';
+		$.ajax({
+			url: '@Url.Action("ProductTable", "Product")',
+			data: {
+				search: searchValue
+			}
+		})
+        .done(function (response) {
+        	$("#tableContiner").html(response);
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("FAIL");
+        });
+	});
+
+
         $("#newBtn").click(function () {
             $.ajax({
-                url: '/Product/Create',
+                url:  '@Url.Action("Create", "Product")',
             })
                 .done(function (response) {
                     $("#actionContainer").html(response);
-                    focusAction();
+                    focusAction("actionContainer");
                 })
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("FAIL");
@@ -147,14 +161,14 @@
 
         $(".editBtn").click(function () {
             $.ajax({
-                url: '/Product/Edit',
+                url:  '@Url.Action("Edit", "Product")',
                 data: {
                     ID: $(this).attr('data-id')
                 }
             })
                 .done(function (response) {
                     $("#actionContainer").html(response);
-                    focusAction();
+                    focusAction("actionContainer");
                 })
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("FAIL");
@@ -174,7 +188,7 @@
                     if (willDelete) {
                         $.ajax({
                             type: 'POST',
-                            url: '/Product/Delete',
+                            url: '@Url.Action("Delete", "Product")',
                             data: {
                                 ID: $(this).attr('data-id')
                             }
@@ -223,10 +237,10 @@
 
     });
 
-    function focusAction() {
-        $('html, body').animate({
-            scrollTop: $("#actionContainer").offset().top - 100
-        }, 1000);
-    }
+    //function focusAction() {
+    //    $('html, body').animate({
+    //        scrollTop: $("#actionContainer").offset().top - 100
+    //    }, 1000);
+    //}
 </script>
 
