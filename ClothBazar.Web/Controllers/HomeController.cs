@@ -10,7 +10,6 @@ namespace ClothBazar.Web.Controllers
 {
     public class HomeController : Controller
     {
-       // CategoriesService categoryService = new CategoriesService();
         public ActionResult Index()
         {
             HomeViewModel model = new HomeViewModel();
