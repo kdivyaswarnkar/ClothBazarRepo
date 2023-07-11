@@ -8,8 +8,10 @@ namespace ClothBazar.Web.ViewModels
 {
     public class CategorySearchViewModel
     {
+        //public int PageNo { get; set; }
         public List<Category> Categories { get; set; }
         public string SearchTerm { get; set; }
+        public Pager Pager { get; set; }
     }
     public class NewCategoryViewModel
     {

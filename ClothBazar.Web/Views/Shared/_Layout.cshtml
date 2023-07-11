@@ -1,7 +1,4 @@
-﻿﻿@{
-    // ConfigurationsService configurationsService = new ConfigurationsService();
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <!-- Basic Page Needs -->
@@ -26,7 +23,8 @@
 
     <!-- Animation Style -->
     <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/animate.css">
-
+    <link href="@Url.Content("~/Content/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/font-awesome.css")" rel="stylesheet" type="text/css" />
 
     <!-- Favicon and touch icons  -->
     <link href="~/favicon.ico" rel="shortcut icon">
@@ -44,6 +42,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></script>
+
 
 </head>
 <body class="header_sticky header-style-1 has-menu-extra">
@@ -61,10 +61,6 @@
                     <div id="logo" class="logo float-left">
                         <a href="index.html" title="logo">
                             <img src="~/Content/images/logo@2x.png" alt="image" width="107" height="24" />
-                            @*<img src="~/Content/images/logo@2x.png" alt="image"
-                                width="107" height="24" data-retina="~/Content/images/logo@2x.png"
-                                data-width="107" data-height="24" />*@
-
                         </a>
                     </div><!-- /.logo -->
                     <div class="mobile-button"><span></span></div>

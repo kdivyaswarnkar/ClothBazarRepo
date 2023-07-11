@@ -1,11 +1,8 @@
 ﻿using ClothBazar.Database;
 using ClothBazar.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Data.Entity;
-using System.Threading.Tasks;
 
 namespace ClothBazar.Services
 {
@@ -30,7 +27,6 @@ namespace ClothBazar.Services
         {
             using (var context = new CBContext())
             {
-               // return context.Products.Find(ID);
                 return context.Products.Where(x => x.ID == ID).Include(x => x.Category).FirstOrDefault();
             }
         }
@@ -43,14 +39,11 @@ namespace ClothBazar.Services
         }
         public List<Product> GetProducts(int pageNo)
         {
-            // var context = new CBContext();
-            // return context.Products.ToList();
-            int pageSize = 5;
+            int pageSize = 5;// int.Parse(ConfigurationsService.Instance.GetConfig("ListingPageSize").Value);
+
             using (var context = new CBContext())
             {
-                //return context.Products.OrderBy(x=>x.ID).Skip((pageNo-1)* pageSize).Take(pageSize).Include(x => x.Category).ToList();
-                return context.Products.Include(x => x.Category).ToList();
-                
+                return context.Products.OrderBy(x=>x.ID).Skip((pageNo-1)* pageSize).Take(pageSize).Include(x => x.Category).ToList();
             }
 
 

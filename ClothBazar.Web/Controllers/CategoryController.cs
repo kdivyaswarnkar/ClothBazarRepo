@@ -4,6 +4,7 @@ using ClothBazar.Web.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 
 namespace ClothBazar.Web.Controllers
@@ -18,17 +19,23 @@ namespace ClothBazar.Web.Controllers
             return View();
         }
 
-        public ActionResult CategoryTable(string search)
+        public ActionResult CategoryTable(string search, int? pageNo)
         {
             CategorySearchViewModel model = new CategorySearchViewModel();
-            model.Categories = CategoriesService.Instance.GetCategories();
-            if (!string.IsNullOrEmpty(search))
+            model.SearchTerm = search;
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+            var totalRecords = CategoriesService.Instance.GetCategoriesCount(search);
+            model.Categories = CategoriesService.Instance.GetCategories(search, pageNo.Value);
+            if (model.Categories != null)
             {
-                model.SearchTerm = search;
-                model.Categories= model.Categories.Where(p => p.Name != null && p.Name.ToLower().Contains(search.ToLower())).ToList();
-            }
+                model.Pager = new Pager(totalRecords, pageNo, 3);
 
-            return PartialView("CategoryTable",model);
+                return PartialView("CategoryTable", model);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
         }
 
 
@@ -38,7 +45,6 @@ namespace ClothBazar.Web.Controllers
         {
             NewCategoryViewModel model = new NewCategoryViewModel();
             return PartialView(model);
-            //return View();
         }
 
         [HttpPost]
@@ -96,6 +102,9 @@ namespace ClothBazar.Web.Controllers
             return RedirectToAction("CategoryTable");
         }
         #endregion
+
+
+      
 
     }
 }

@@ -11,8 +11,6 @@ namespace ClothBazar.Web.Controllers
 {
     public class ProductController : Controller
     {
-       // ProductService productsService = new ProductService();
-       // CategoriesService categoryService = new CategoriesService();
         // GET: Product
         public ActionResult Index()
         {
@@ -21,28 +19,8 @@ namespace ClothBazar.Web.Controllers
 
         public ActionResult ProductTable(string search, int? pageNo)
         {
-           // var products = ProductService.Instance.GetProducts();
-           // var products = productsService.GetProducts();
             ProductSearchViewModel model = new ProductSearchViewModel();
-           
-
             model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
-            ////similar to above
-            //if(pageNo.HasValue)
-            //{
-            //    if(pageNo.Value > 0)
-            //    {
-            //        model.PageNo = pageNo.Value;
-            //    }
-            //    else
-            //    {
-            //        model.PageNo = 1;
-            //    }
-            //}
-            //else
-            //{
-            //    model.PageNo = 1;
-            //}
             model.Products = ProductService.Instance.GetProducts(model.PageNo);
 
             if (string.IsNullOrEmpty(search) == false)
@@ -58,7 +36,7 @@ namespace ClothBazar.Web.Controllers
         {
             NewProductViewModel model = new NewProductViewModel();
 
-            model.AvailableCategories = CategoriesService.Instance.GetCategories();
+            model.AvailableCategories = CategoriesService.Instance.GetAllCategories();
 
             return PartialView(model);
         }
@@ -88,7 +66,7 @@ namespace ClothBazar.Web.Controllers
             model.Description = product.Description;
             model.Price = product.Price;
             model.CategoryID = product.Category != null ? product.Category.ID : 0;
-            model.AvailableCategories = CategoriesService.Instance.GetCategories();
+            model.AvailableCategories = CategoriesService.Instance.GetAllCategories();
             model.ImageURL = product.ImageURL;
             return PartialView(model);
         }

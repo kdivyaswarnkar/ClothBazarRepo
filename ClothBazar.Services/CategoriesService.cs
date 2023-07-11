@@ -27,17 +27,19 @@ namespace ClothBazar.Services
         }
         #endregion
 
-        public List<Category> GetCategories()
+        public List<Category> GetAllCategories()
         {
             using (var context = new CBContext())
             {
-                return context.Categories.Include(x=>x.Products).ToList();
+               // return context.Categories.Include(x => x.Products).ToList();
+                return context.Categories
+                       .ToList();
             }
 
         }
         public void SaveCategory(Category category)
         {
-            using (var context=new CBContext())
+            using (var context = new CBContext())
             {
                 context.Categories.Add(category);
                 context.SaveChanges();
@@ -49,7 +51,7 @@ namespace ClothBazar.Services
         {
             using (var context = new CBContext())
             {
-               return context.Categories.Find(ID);
+                return context.Categories.Find(ID);
 
             }
 
@@ -60,7 +62,7 @@ namespace ClothBazar.Services
             using (var context = new CBContext())
             {
                 //return context.Categories.Where(x => x.isFeatured ==true && x.ImageURL != null).ToList();
-                return context.Categories.Where(x => x.isFeatured==true && x.ImageURL !=null).ToList();
+                return context.Categories.Where(x => x.isFeatured == true && x.ImageURL != null).ToList();
             }
         }
 
@@ -85,5 +87,48 @@ namespace ClothBazar.Services
             }
         }
 
+        public int GetCategoriesCount(string search)
+        {
+            using (var context = new CBContext())
+            {
+                if (!string.IsNullOrEmpty(search))
+                {
+                    return context.Categories.Where(category => category.Name != null &&
+                         category.Name.ToLower().Contains(search.ToLower())).Count();
+                }
+                else
+                {
+                    return context.Categories.Count();
+                }
+            }
+        }
+
+        public List<Category> GetCategories(string search, int pageNo)
+        {
+            int pageSize = 3;
+            using (var context = new CBContext())
+            {
+                if (!string.IsNullOrEmpty(search))
+                {
+                    return context.Categories.Where(category => category.Name != null &&
+                         category.Name.ToLower().Contains(search.ToLower()))
+                         .OrderBy(x => x.ID)
+                         .Skip((pageNo - 1) * pageSize)
+                         .Take(pageSize)
+                         .Include(x => x.Products)
+                         .ToList();
+                }
+                else
+                {
+                    return context.Categories
+                        .OrderBy(x => x.ID)
+                        .Skip((pageNo - 1) * pageSize)
+                        .Take(pageSize)
+                        .Include(x => x.Products)
+                        .ToList();
+                }
+
+            }
+        }
     }
 }

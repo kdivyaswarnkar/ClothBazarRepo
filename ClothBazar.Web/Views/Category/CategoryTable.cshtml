@@ -1,5 +1,4 @@
-﻿
-<script src="~/Content/javascript/jquery.min.js"></script>
+﻿<script src="~/Content/javascript/jquery.min.js"></script>
 
 @model ClothBazar.Web.ViewModels.CategorySearchViewModel
 
@@ -17,6 +16,7 @@
                 <div class="form-group">
                     <label>Action</label>
                     <div class="row">
+                        
                         <div class="col-md-4 pr-0">
                             <button class="btn btn-primary form-control" type="button" id="searchBtn">Search</button>
                         </div>
@@ -62,11 +62,33 @@
             }
             else
             {
-               
-              <tr><td colspan="3" class="text-danger">No Categories found.</td></tr>
+
+                <tr><td colspan="3" class="text-danger">No Categories found.</td></tr>
             }
         </tbody>
     </table>
+</div>
+
+<div>
+    @if (Model.Pager != null)
+    {
+
+        if (Model.Pager.CurrentPage > 1)
+        {
+            <button class="pageButtons" data-pageno="1">First</button>
+            <button class="pageButtons" data-pageno="@(Model.Pager.CurrentPage - 1)">Previous</button>
+        }
+        for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+        {
+            string activeClass = Model.Pager.CurrentPage == page ? "active bg-info" : string.Empty;
+            <button class="@activeClass pageButtons" data-pageno="@page">@page</button>
+        }
+        if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+        {
+            <button class="pageButtons" data-pageno="@(Model.Pager.CurrentPage + 1)">Next</button>
+            <button class="pageButtons" data-pageno="@Model.Pager.EndPage">Last</button>
+        }
+    }
 </div>
 
 
@@ -75,19 +97,33 @@
 
     $(document).ready(function () {
 
+
+        $(".pageButtons").click(function () {
+		$.ajax({
+			url: '@Url.Action("CategoryTable", "Category")',
+			data: {
+				pageNo: $(this).attr("data-pageNo")
+			}
+		})
+        .done(function (response) {
+        	$("#tableContainer").html(response);
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("FAIL");
+        });
+	});
+
         $("#searchBtn").click(function () {
 
             var searchValue = $("#searchTxt").val();
             $.ajax({
-               // url: '/Category/CategoryTable',
-                url: '@Url.Action("CategoryTable", "Category")',//'/Category/CategoryTable',
+                url: '@Url.Action("CategoryTable", "Category")',
                 data: {
                     search: searchValue
                 }
             })
                 .done(function (response) {
                     $("#tableContainer").html(response);
-                 //   $("#seachContainer").html("");
                 })
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("FAIL");
@@ -97,13 +133,13 @@
         $("#resetBtn").click(function () {
 		var searchValue = '';
 		$.ajax({
-			url: '@Url.Action("CategoryTable", "Category")',//'/Category/CategoryTable',
+			url: '@Url.Action("CategoryTable", "Category")',
 			data: {
 				search: searchValue
 			}
 		})
         .done(function (response) {
-        	$("#tableContiner").html(response);
+        	$("#tableContainer").html(response);
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("FAIL");
@@ -112,7 +148,7 @@
 
         $("#newBtn").click(function () {
             $.ajax({
-                url: '@Url.Action("Create", "Category")',//'/Category/Create',
+                url: '@Url.Action("Create", "Category")',
             })
                 .done(function (response) {
                     $("#actionContainer").html(response);
