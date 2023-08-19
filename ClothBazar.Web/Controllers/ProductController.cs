@@ -98,7 +98,7 @@ namespace ClothBazar.Web.Controllers
         {
             ProductViewModel model = new ProductViewModel();
             model.Product = ProductService.Instance.GetProduct(ID);
-
+            if (model.Product == null) return HttpNotFound();
             return View(model);
         }
 
