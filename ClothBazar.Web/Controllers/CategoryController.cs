@@ -3,6 +3,7 @@ using ClothBazar.Services;
 using ClothBazar.Web.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 
@@ -50,13 +51,20 @@ namespace ClothBazar.Web.Controllers
         [HttpPost]
         public ActionResult Create(NewCategoryViewModel model)
         {
-            var newCategory = new Category();
-            newCategory.Name = model.Name;
-            newCategory.Description = model.Description;
-            newCategory.ImageURL = model.ImageURL;
-            newCategory.isFeatured = model.isFeatured;
-            CategoriesService.Instance.SaveCategory(newCategory);
-            return RedirectToAction("CategoryTable");
+            if (ModelState.IsValid)
+            {
+                var newCategory = new Category();
+                newCategory.Name = model.Name;
+                newCategory.Description = model.Description;
+                newCategory.ImageURL = model.ImageURL;
+                newCategory.isFeatured = model.isFeatured;
+                CategoriesService.Instance.SaveCategory(newCategory);
+                return RedirectToAction("CategoryTable");
+            }
+            else
+            {
+                return new HttpStatusCodeResult(500);
+            }
         }
 
         #endregion

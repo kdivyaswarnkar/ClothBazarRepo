@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "datatables.net-dt": "^1.13.5"
+    "datatables.net-dt": "^1.13.5",
+    "jquery-validation": "^1.19.5"
   }
 }

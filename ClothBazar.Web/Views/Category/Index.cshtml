@@ -1,6 +1,10 @@
 ﻿@{
     ViewBag.Title = "Categories";
 }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>*@
 
 <section class="flat-row flat-iconbox">
     <div class="container">
@@ -24,9 +28,9 @@
     </div>
 </section>
 <script>
-	function focusAction(controlToFocus) {
-		$('html, body').animate({
-			scrollTop: $("#" + controlToFocus).offset().top - 100
-		}, 1000);
-	}
+    function focusAction(controlToFocus) {
+        $('html, body').animate({
+            scrollTop: $("#" + controlToFocus).offset().top - 100
+        }, 1000);
+    }
 </script>

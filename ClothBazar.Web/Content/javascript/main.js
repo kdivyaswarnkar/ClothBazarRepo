@@ -134,7 +134,7 @@
                     values: [{
                         address: val.address,
                         options: {
-                            icon: "./images/maps/map_icon.png"
+                            icon: "~/Content/images/maps/map_icon.png"
                         },
                         events: {
                             mouseover: function () {

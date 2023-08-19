@@ -3,12 +3,16 @@
     ViewBag.Title = "Create";
     var imageURL = "/Content/images/system/placeholder-image.png";
 }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 
 <form id="createCategory">
     <div class="row">
         <div class="col-md-8">
             <div class="form-group">
-                <label>Name</label>
+                <label>Name<span class="text-danger">*</span></label>
                 <input class="form-control" name="Name" />
             </div>
             <div class="form-group">
@@ -53,8 +57,9 @@
             formData.append("Photo", file);
         }
         $.ajax({
+           
             type: 'POST',
-            url: '@Url.Action("UploadImage", "Shared")',
+            url: '@Url.Action("UploadImage","Shared")',
             dataType: 'json',
             data: formData,
             contentType: false,
@@ -73,22 +78,62 @@
             });
     });
 
-    $("#saveBtn").click(function () {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("Create", "Category")',
-            data: $("#createCategory").serialize()
-        })
-            .done(function (response) {
-                $("#tableContiner").html(response);
-                $("#actionContainer").html("");
-                focusAction("tableContainer");
+    $('#createCategory').validate({
+        rules: {
+            Name: {
+                required: true,
+                minlength: 5,
+                maxlength: 50,
+            },
+            Description: {
+                maxlength: 500
+            }
+        },
+        messages: {
+            Name: {
+                required: 'Name is required',
+                minlength: 'Minimum Length is 5',
+                maxlength: 'Maximum Length is 50'
+            },
+            Description: {
+                maxlength: 'Maximum Length is 500'
+            }
+        }
+    });
 
-                
-            })
-            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("FAIL");
-            });
+    $("#saveBtn").click(function () {
+
+		if ($("#createCategory").valid()) {
+			$.ajax({
+				type: 'POST',
+				url: '@Url.Action("Create", "Category")',
+				data: $("#createCategory").serialize()
+			})
+			.done(function (response) {
+				$("#tableContainer").html(response);
+				$("#actionContainer").html("");
+				focusAction("tableContainer");
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				swal({
+					title: "Warning",
+					text: "Please enter all required fields.",
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+				});
+			});
+		}
+		else {
+			swal({
+				title: "JS Warning",
+				text: "Please enter all required fields.",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			});
+		}
+
 
     });
 

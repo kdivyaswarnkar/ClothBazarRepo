@@ -1,4 +1,8 @@
 ﻿<script src="~/Content/javascript/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 
 @model ClothBazar.Web.ViewModels.CategorySearchViewModel
 
@@ -16,7 +20,7 @@
                 <div class="form-group">
                     <label>Action</label>
                     <div class="row">
-                        
+
                         <div class="col-md-4 pr-0">
                             <button class="btn btn-primary form-control" type="button" id="searchBtn">Search</button>
                         </div>
@@ -102,7 +106,9 @@
 		$.ajax({
 			url: '@Url.Action("CategoryTable", "Category")',
 			data: {
-				pageNo: $(this).attr("data-pageNo")
+                pageNo: $(this).attr("data-pageNo"),
+                // search: $("#searchTxt").val()
+                search: "@Model.SearchTerm"
 			}
 		})
         .done(function (response) {
