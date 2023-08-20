@@ -18,4 +18,8 @@ namespace ClothBazar.Web.ViewModels
         public List<Product> Products { get; set; }
         public int? SortBy { get; set; }
     }
+    public class FilterProductsViewModel
+    {
+        public List<Product> Products { get; set; }
+    }
 }

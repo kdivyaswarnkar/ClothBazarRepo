@@ -25,6 +25,16 @@ namespace ClothBazar.Web.Controllers
             return View(model);
         }
 
+
+        public ActionResult FilterProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy)
+        {
+            FilterProductsViewModel model = new FilterProductsViewModel();
+
+            model.Products = ProductService.Instance.SearchProducts(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy);
+
+            return PartialView(model);
+        }
+
         // GET: Shop
         public ActionResult Checkout()
         {
