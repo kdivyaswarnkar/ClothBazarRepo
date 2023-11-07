@@ -19,16 +19,24 @@ namespace ClothBazar.Web.Controllers
 
         public ActionResult ProductTable(string search, int? pageNo)
         {
+            var pageSize = ConfigurationsService.Instance.PageSize();
             ProductSearchViewModel model = new ProductSearchViewModel();
-            model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
-            model.Products = ProductService.Instance.GetProducts(model.PageNo);
+            model.SearchTerm = search;
+            //model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+            // model.Products = ProductService.Instance.GetProducts(model.PageNo);
 
-            if (string.IsNullOrEmpty(search) == false)
-            {
-                model.SearchTerm = search;
-                model.Products = model.Products.Where(p => p.Name != null && p.Name.ToLower().Contains(search.ToLower())).ToList();
-            }
-                return PartialView(model);
+            //if (string.IsNullOrEmpty(search) == false)
+            //{
+            //    model.SearchTerm = search;
+            //    model.Products = model.Products.Where(p => p.Name != null && p.Name.ToLower().Contains(search.ToLower())).ToList();
+            //}
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+            var totalRecords = ProductService.Instance.GetProductsCount(search);
+            model.Products = ProductService.Instance.GetProducts(search, pageNo.Value, pageSize);
+
+            model.Pager = new Pager(totalRecords, pageNo, pageSize);
+            return PartialView(model);
         }
 
         [HttpGet]
@@ -78,8 +86,16 @@ namespace ClothBazar.Web.Controllers
             existingProduct.Name = model.Name;
             existingProduct.Description = model.Description;
             existingProduct.Price = model.Price;
-            existingProduct.Category = CategoriesService.Instance.GetCategory(model.CategoryID);
-            existingProduct.ImageURL = model.ImageURL;
+            //existingProduct.Category = CategoriesService.Instance.GetCategory(model.CategoryID);
+            //existingProduct.ImageURL = model.ImageURL;
+            existingProduct.Category = null; //mark it null. Because the referncy key is changed below
+            existingProduct.CategoryID = model.CategoryID;
+
+            //dont update imageURL if its empty
+            if (!string.IsNullOrEmpty(model.ImageURL))
+            {
+                existingProduct.ImageURL = model.ImageURL;
+            }
             ProductService.Instance.UpdateProduct(existingProduct);
             return RedirectToAction("ProductTable");
         }

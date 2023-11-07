@@ -1,10 +1,20 @@
 ﻿
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">*@
+@*<script src="https://code.jquery.com/jquery-3.6.0.js"></script>*@
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
 @model FilterProductsViewModel
 
 @{
 
     var defaultImageURL = "/Content/images/system/placeholder-image.png";
 }
+
+<div class="filter-shop clearfix">
+    <p class="showing-product float-right">
+        Showing @(((Model.Pager.CurrentPage - 1) * Model.Pager.PageSize) + 1 ) – @(((Model.Pager.CurrentPage - 1) * Model.Pager.PageSize) + (Model.Products.Count < Model.Pager.PageSize ? Model.Products.Count : Model.Pager.PageSize)) of @Model.Pager.TotalItems Products
+    </p>
+</div><!-- /.filte-shop -->
 
 <div class="product-content product-threecolumn product-slidebar clearfix">
     <ul class="product style2 sd1">
@@ -16,7 +26,8 @@
             <li class="product-item">
                 <div class="product-thumb clearfix">
                     <a href="#">
-                        <img src="@imageURL" alt="image">
+                        @*<img src="@imageURL" alt="image">*@
+                        <img src="@imageURL" alt="image" style="height: 295px;">
                     </a>
                 </div>
                 <div class="product-info clearfix">
@@ -37,7 +48,7 @@
         }
     </ul><!-- /.product -->
 </div><!-- /.product-content -->
-<div class="product-pagination text-center clearfix">
+<!--<div class="product-pagination text-center clearfix">
     <ul class="flat-pagination">
         <li class="prev">
             <a href="#"><i class="fa fa-angle-left"></i></a>
@@ -46,5 +57,48 @@
         <li class="active"><a href="#" title="">2</a></li>
         <li><a href="#">3</a></li>
         <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-    </ul><!-- /.flat-pagination -->
-</div>
+    </ul>-->
+<!-- /.flat-pagination -->
+<!--</div>-->
+
+@if (Model.Pager != null && Model.Pager.TotalPages > 1)
+{
+    <div class="product-pagination text-center clearfix">
+        <ul class="flat-pagination">
+            @if (Model.Pager.CurrentPage > 1)
+            {
+                <li class="prev">
+                    <a data-href="@Url.Action("FilterProducts", "Shop", new { pageNo = Model.Pager.CurrentPage - 1, sortBy = Model.SortBy, categoryID = Model.CategoryID })" class="pageDataLink"><i class="fa fa-angle-left"></i></a>
+                </li>
+            }
+
+            @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+            {
+                string activeClass = Model.Pager.CurrentPage == page ? "active bg-info" : string.Empty;
+
+                <li class="@activeClass"><a data-href="@Url.Action("FilterProducts", "Shop", new { pageNo = page, sortBy = Model.SortBy, categoryID = Model.CategoryID })" title="" class="pageDataLink">@page</a></li>
+            }
+
+            @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+            {
+                <li><a data-href="@Url.Action("FilterProducts", "Shop", new { pageNo = Model.Pager.CurrentPage + 1, sortBy = Model.SortBy, categoryID = Model.CategoryID})" class="pageDataLink"><i class="fa fa-angle-right"></i></a></li>
+            }
+        </ul><!-- /.flat-pagination -->
+    </div>
+}
+
+<input type="hidden" id="SearchTerm" value="@Model.SearchTerm" />
+<input type="hidden" id="SortBy" value="@Model.SortBy" />
+<input type="hidden" id="CategoryID" value="@Model.CategoryID" />
+
+ <script type="text/javascript">
+
+     $(document).ready(function () {
+         $(".pageDataLink").click(function () {
+             var url = $(this).attr("data-href");
+             if (url != "" || url != undefined) {
+                 GetData(url);
+             }
+         });
+     });
+</script>

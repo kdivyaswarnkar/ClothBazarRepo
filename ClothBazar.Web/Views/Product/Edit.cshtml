@@ -1,4 +1,5 @@
-﻿@model EditProductViewModel
+﻿
+@model EditProductViewModel
 @{
     ViewBag.Title = "Edit";
     var imageURL = !string.IsNullOrEmpty(Model.ImageURL) ? Model.ImageURL : "/Content/images/system/placeholder-image.png";
@@ -6,8 +7,11 @@
 
 <h2>Edit Product</h2>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 
-<form id="editProduct">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+<form id="editProduct" method="post">
     <input type="hidden" name="ID" value="@Model.ID" />
     <div class="row">
         <div class="col-md-8">
@@ -38,8 +42,7 @@
                 <input type="hidden" id="ImageURL" name="ImageURL" />
                 <input class="form-control" id="imageUpload" name="Image" type="file" accept=".png, .jpg" />
             </div>
-            <button id="updateBtn" type="button" class="btn btn-primary">Update</button>
-            <button id="cancelBtn" type="button" class="btn btn-primary">Cancel</button>
+
         </div>
         <div class="col-md-4">
             <div class="thumb">
@@ -47,57 +50,102 @@
             </div>
         </div>
     </div>
-    </form>
+    <button id="updateBtn" type="button" class="btn btn-primary">Update</button>
+    <button id="cancelBtn" type="button" class="btn btn-primary">Cancel</button>
+</form>
 
-<script>
-        $(document).ready(function () {
-            $("#imageUpload").change(function () {
-              
-        var element = this;
-        var formData = new FormData();
-        var totalFiles = element.files.length;
-        for (var i = 0; i < totalFiles; i++) {
-            var file = element.files[i];
-            formData.append("Photo", file);
-        }
-        $.ajax({
-            type: 'POST',
-            url:'@Url.Action("UploadImage", "Shared")',
-            dataType: 'json',
-            data: formData,
-            contentType: false,
-            processData: false
-        })
-            .done(function (response) {
-                console.log(response);
-                if (response.Success) {
-                    $("#ImageURL").val(response.ImageURL);
-                    $("#productImage").attr("src", response.ImageURL);
-                }
-            })
-            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("FAIL");
-            });
-    });
-        $("#updateBtn").click(function () {
+
+<script type="text/javascript">
+    $(document).ready(function () {
+         $("#imageUpload").change(function () {
+            var element = this;
+            var formData = new FormData();
+            var totalFiles = element.files.length;
+            for (var i = 0; i < totalFiles; i++) {
+                var file = element.files[i];
+                formData.append("Photo", file);
+            }
             $.ajax({
                 type: 'POST',
-                url:  '@Url.Action("Edit", "Product")',
-                data: $("#editProduct").serialize()
+                url: '@Url.Action("UploadImage", "Shared")',
+                dataType: 'json',
+                data: formData,
+                contentType: false,
+                processData: false
             })
                 .done(function (response) {
-                    $("#tableContainer").html(response);
-                    $("#actionContainer").html("");
-                    focusAction("tableContainer");
+                    console.log(response);
+                    if (response.Success) {
+                        $("#ImageURL").val(response.ImageURL);
+                        $("#productImage").attr("src", response.ImageURL);
+                    }
                 })
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("FAIL");
                 });
         });
-    });
 
-    $("#cancelBtn").click(function () {
-      //  $("#actionContainer").html("");
-        focusAction("tableContiner");
+        $("#cancelBtn").click(function () {
+            $("#actionContainer").html("");
+            focusAction("tableContainer");
+
+        });
+
+        $("#editProduct").validate({
+            rules: {
+                Name: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 50,
+                },
+                Description: {
+                    maxlength: 500
+                },
+                Price: {
+                    range: [1, 100000]
+                }
+            },
+            messages: {
+                Name: {
+                    required: 'Name is required',
+                    minlength: 'Minimum Length is 5',
+                    maxlength: 'Maximum Length is 50'
+                },
+                Description: {
+                    maxlength: 'Maximum Length is 500'
+                },
+                Price: {
+                    range: 'Price must be within range of 1 - 100000.'
+                }
+            }
+        });
+
+        $("#updateBtn").click(function () {
+            if ($("#editProduct").validate()) {
+                debugger;
+                   $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Edit", "Product")',
+                    data: $("#editProduct").serialize()
+                })
+                    .done(function (response) {
+                        $("#tableContainer").html(response);
+                        $("#actionContainer").html("");
+                        focusAction("tableContainer");
+                    })
+                    .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("FAIL");
+                    });
+              }
+              else {
+                  swal({
+                      title: "Warning",
+                      text: "Please enter all valid data in fields.",
+                      icon: "warning",
+                      buttons: true,
+                      dangerMode: true,
+                  });
+              }
+        });
     });
 </script>

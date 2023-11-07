@@ -47,101 +47,104 @@
 </form>
 
 
-<script>
-    $("#imageUpload").change(function () {
-        var element = this;
-        var formData = new FormData();
-        var totalFiles = element.files.length;
-        for (var i = 0; i < totalFiles; i++) {
-            var file = element.files[i];
-            formData.append("Photo", file);
-        }
-        $.ajax({
-           
-            type: 'POST',
-            url: '@Url.Action("UploadImage","Shared")',
-            dataType: 'json',
-            data: formData,
-            contentType: false,
-            processData: false
-        })
-            .done(function (response) {
 
-                console.log(response);
-                if (response.Success) {
-                    $("#ImageURL").val(response.ImageURL);
-                    $("#categoryImage").attr("src", response.ImageURL);
-                }
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#imageUpload").change(function () {
+            var element = this;
+            var formData = new FormData();
+            var totalFiles = element.files.length;
+            for (var i = 0; i < totalFiles; i++) {
+                var file = element.files[i];
+                formData.append("Photo", file);
+            }
+            $.ajax({
+
+                type: 'POST',
+                url: '@Url.Action("UploadImage","Shared")',
+                dataType: 'json',
+                data: formData,
+                contentType: false,
+                processData: false
             })
-            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("FAIL");
-            });
-    });
+                .done(function (response) {
 
-    $('#createCategory').validate({
-        rules: {
-            Name: {
-                required: true,
-                minlength: 5,
-                maxlength: 50,
+                    console.log(response);
+                    if (response.Success) {
+                        $("#ImageURL").val(response.ImageURL);
+                        $("#categoryImage").attr("src", response.ImageURL);
+                    }
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("FAIL");
+                });
+        });
+
+        $('#createCategory').validate({
+            rules: {
+                Name: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 50,
+                },
+                Description: {
+                    maxlength: 500
+                }
             },
-            Description: {
-                maxlength: 500
+            messages: {
+                Name: {
+                    required: 'Name is required',
+                    minlength: 'Minimum Length is 5',
+                    maxlength: 'Maximum Length is 50'
+                },
+                Description: {
+                    maxlength: 'Maximum Length is 500'
+                }
             }
-        },
-        messages: {
-            Name: {
-                required: 'Name is required',
-                minlength: 'Minimum Length is 5',
-                maxlength: 'Maximum Length is 50'
-            },
-            Description: {
-                maxlength: 'Maximum Length is 500'
+        });
+
+        $("#saveBtn").click(function () {
+            
+            if ($("#createCategory").valid()) {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Create", "Category")',
+                    data: $("#createCategory").serialize()
+                })
+                    .done(function (response) {
+                        $("#tableContainer").html(response);
+                        $("#actionContainer").html("");
+                        focusAction("tableContainer");
+                    })
+                    .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                        swal({
+                            title: "Warning",
+                            text: "Please enter all required fields.",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        });
+                    });
             }
-        }
+            else {
+                swal({
+                    title: "Warning",
+                    text: "Please enter all valid data in fields.",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                });
+            }
+
+
+        });
+
+        $("#cancelBtn").click(function () {
+            $("#actionContainer").html("");
+            focusAction("tableContainer");
+        });
     });
-
-    $("#saveBtn").click(function () {
-
-		if ($("#createCategory").valid()) {
-			$.ajax({
-				type: 'POST',
-				url: '@Url.Action("Create", "Category")',
-				data: $("#createCategory").serialize()
-			})
-			.done(function (response) {
-				$("#tableContainer").html(response);
-				$("#actionContainer").html("");
-				focusAction("tableContainer");
-			})
-			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
-				swal({
-					title: "Warning",
-					text: "Please enter all required fields.",
-					icon: "warning",
-					buttons: true,
-					dangerMode: true,
-				});
-			});
-		}
-		else {
-			swal({
-				title: "JS Warning",
-				text: "Please enter all required fields.",
-				icon: "warning",
-				buttons: true,
-				dangerMode: true,
-			});
-		}
-
-
-    });
-
-    $("#cancelBtn").click(function () {
-        $("#actionContainer").html("");
-        focusAction("tableContainer");
-    });
-
 </script>
 
 

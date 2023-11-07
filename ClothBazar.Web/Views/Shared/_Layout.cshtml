@@ -8,56 +8,37 @@
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
     <!-- Bootstrap  -->
     <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/bootstrap.css">
-
     <!-- Theme Style -->
     <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/style.css">
     <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/responsive.css">
-
     <!-- Colors -->
     <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/colors/color1.css" id="colors">
-
     <!-- Animation Style -->
     <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/animate.css">
     <link href="@Url.Content("~/Content/font-awesome.min.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/font-awesome.css")" rel="stylesheet" type="text/css" />
-
     <!-- Favicon and touch icons  -->
     <link href="~/favicon.ico" rel="shortcut icon">
 
-    <!--[if lt IE 9]>
-        <script src="javascript/html5shiv.js"></script>
-        <script src="javascript/respond.min.js"></script>
-    <![endif]-->
-    <!-- Datatables pagination  -->
-    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
-        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>*@
+    <!-- Include jQuery first -->
+  
 
-    <script src="~/Content/javascript/jquery.min.js"></script>
-
-
-    @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-        <script src="~/Scripts/jquery.validate.js"></script>
-        <script src="~/Scripts/jquery.validate.min.js"></script>
-        <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>*@
-
+    <!-- Include jQuery first -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    @*<script src="~/Scripts/jquery-validate/jquery.validate.js"></script>
-        <script src="~/Scripts/jquery-validate/jquery.validate.min.js"></script>*@
-    <!-- jQuery Validation 1.17.0 -->
+    <script src="~/Content/javascript/jquery-waypoints.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <!-- Include jQuery Validation plugin -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="~/Content/jquery-validate/jquery.validate.js"></script>
+    <script src="~/Content/jquery-validate/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 
-    @*  <script src="https://cdn.jsdelivr.net/jquery.validation/1.17.0/jquery.validate.min.js"></script>*@
+    <!-- Other CSS and script includes... -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-          integrity="sha512-xxx" crossorigin="anonymous">
-
-    @*  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></script>*@
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-    <script src="~/Content/javascript/jquery-ui.js"></script>
 </head>
 <body class="header_sticky header-style-1 has-menu-extra">
     <!-- Preloader -->
@@ -72,7 +53,7 @@
             <header id="header" class="header clearfix">
                 <div class="container-fluid clearfix container-width-93" id="site-header-inner">
                     <div id="logo" class="logo float-left">
-                        <a href="@Url.Action("Index","Home")" title="logo">
+                        <a href="@Url.Action("Index", "Home")" title="logo">
                             <img src="~/Content/images/ClothBazar.png" alt="image" width="107" height="24" />
                         </a>
                     </div><!-- /.logo -->
@@ -85,9 +66,15 @@
                                 <button type="submit" class="header-search-submit" title="Search">Search</button>
                             </form>
                         </li>
-                        <li class="box-login">
-                            <a class="icon_login" href="#"></a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="box-login">
+                                @*<a class="icon_login" href="#"></a>*@
+                                <a class="icon_login" href="#">
+                                    @User.Identity.Name
+                                </a>
+                            </li>
+                        }
                         <li class="box-cart nav-top-cart-wrapper">
                             <a class="icon_cart nav-cart-trigger active" href="#"><span>3</span></a>
                             <div class="nav-shop-cart">
@@ -228,12 +215,9 @@
 
     @* @RenderSection("scripts", required: false)*@
     <!-- Javascript -->
-    <script src="~/Content/javascript/jquery.min.js"></script>
     <script src="~/Content/javascript/tether.min.js"></script>
     <script src="~/Content/javascript/bootstrap.min.js"></script>
-    <script src="~/Content/javascript/jquery.easing.js"></script>
     <script src="~/Content/javascript/parallax.js"></script>
-    <script src="~/Content/javascript/jquery-waypoints.js"></script>
     <script src="~/Content/javascript/jquery-countTo.js"></script>
     <script src="~/Content/javascript/jquery.countdown.js"></script>
     <script src="~/Content/javascript/jquery.flexslider-min.js"></script>
@@ -245,7 +229,7 @@
     <script src="~/Content/javascript/equalize.min.js"></script>
     <script src="~/Content/javascript/gmap3.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEU6OT3xqCksCetQeNLIPps6-AYrhq-s&region=GB"></script>
-    <script src="~/Content/javascript/jquery-ui.js"></script>
+
 
     <script src="~/Content/javascript/jquery.cookie.js"></script>
     <script src="~/Content/javascript/main.js"></script>
@@ -266,7 +250,6 @@
     <script src="~/Content/rev-slider/js/extensions/revolution.extension.video.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link href="~/Content/sweetalert/sweet-alert.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
 
 </body>

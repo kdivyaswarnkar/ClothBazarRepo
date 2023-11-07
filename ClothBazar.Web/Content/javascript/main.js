@@ -1,3 +1,5 @@
+
+
 /**
   * isMobile
   * flatRetinaLogo
@@ -26,6 +28,8 @@
   * flatContentBox
   * swClick
 */
+
+
 
 ;(function($) {
 
@@ -371,11 +375,22 @@
     var removePreloader = function() {        
         $(window).on("load", function () {
             $(".loader").fadeOut();
-            $("#loading-overlay").delay(500).fadeOut('slow',function(){
-            $(this).remove();
-            }); 
+            //$("#loading-overlay").delay(500).fadeOut('slow',function(){
+            //$(this).remove();
+            $("#loading-overlay").delay(500).fadeOut('slow');
       });
     };
+
+    function hideLoader() {
+        $(".loader").fadeOut();
+        $("#loading-overlay").delay(500).fadeOut('slow');
+    };
+
+    function showLoader() {
+        $(".loader").fadeIn();
+        $("#loading-overlay").delay(500).fadeIn('slow');
+    };
+
 
     //var flatPrice = function() {
     //    if( $().slider ) {

@@ -50,53 +50,58 @@
 </form>
 
 
-<script>
-    $("#imageUpload").change(function () {
-        var element = this;
-        var formData = new FormData();
-        var totalFiles = element.files.length;
-        for (var i = 0; i < totalFiles; i++) {
-            var file = element.files[i];
-            formData.append("Photo", file);
-        }
-        $.ajax({
-            type: 'POST',
-            url:'@Url.Action("UploadImage", "Shared")',
-            dataType: 'json',
-            data: formData,
-            contentType: false,
-            processData: false
-        })
-            .done(function (response) {
-                console.log(response);
-                if (response.Success) {
-                    $("#ImageURL").val(response.ImageURL);
-                    $("#categoryImage").attr("src", response.ImageURL);
-                }
-            })
-            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("FAIL");
-            });
-    });
-    $("#updateBtn").click(function () {
-        $.ajax({
-            type: 'POST',
-            url:  '@Url.Action("Edit", "Category")',
-            data: $("#editCategory").serialize()
-        })
-            .done(function (response) {
-                $("#tableContiner").html(response);
-                $("#actionContainer").html("");
-                focusAction("tableContainer");
-            })
-            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("FAIL");
-            });
-    });
+<script type="text/javascript">
 
-    $("#cancelBtn").click(function () {
-        $("#actionContainer").html("");
-        focusAction("tableContainer");
+    $(document).ready(function () {
+
+
+        $("#imageUpload").change(function () {
+            var element = this;
+            var formData = new FormData();
+            var totalFiles = element.files.length;
+            for (var i = 0; i < totalFiles; i++) {
+                var file = element.files[i];
+                formData.append("Photo", file);
+            }
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UploadImage", "Shared")',
+                dataType: 'json',
+                data: formData,
+                contentType: false,
+                processData: false
+            })
+                .done(function (response) {
+                    console.log(response);
+                    if (response.Success) {
+                        $("#ImageURL").val(response.ImageURL);
+                        $("#categoryImage").attr("src", response.ImageURL);
+                    }
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("FAIL");
+                });
+        });
+        $("#updateBtn").click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Edit", "Category")',
+                data: $("#editCategory").serialize()
+            })
+                .done(function (response) {
+                    $("#tableContiner").html(response);
+                    $("#actionContainer").html("");
+                    focusAction("tableContainer");
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("FAIL");
+                });
+        });
+
+        $("#cancelBtn").click(function () {
+            $("#actionContainer").html("");
+            focusAction("tableContainer");
+        });
     });
 </script>
 
