@@ -1,7 +1,4 @@
-﻿
-@*<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">*@
-@*<script src="https://code.jquery.com/jquery-3.6.0.js"></script>*@
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+﻿<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 @model FilterProductsViewModel
 
@@ -48,18 +45,7 @@
         }
     </ul><!-- /.product -->
 </div><!-- /.product-content -->
-<!--<div class="product-pagination text-center clearfix">
-    <ul class="flat-pagination">
-        <li class="prev">
-            <a href="#"><i class="fa fa-angle-left"></i></a>
-        </li>
-        <li><a href="#">1</a></li>
-        <li class="active"><a href="#" title="">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-    </ul>-->
-<!-- /.flat-pagination -->
-<!--</div>-->
+
 
 @if (Model.Pager != null && Model.Pager.TotalPages > 1)
 {
@@ -84,6 +70,7 @@
                 <li><a data-href="@Url.Action("FilterProducts", "Shop", new { pageNo = Model.Pager.CurrentPage + 1, sortBy = Model.SortBy, categoryID = Model.CategoryID})" class="pageDataLink"><i class="fa fa-angle-right"></i></a></li>
             }
         </ul><!-- /.flat-pagination -->
+
     </div>
 }
 
@@ -91,14 +78,45 @@
 <input type="hidden" id="SortBy" value="@Model.SortBy" />
 <input type="hidden" id="CategoryID" value="@Model.CategoryID" />
 
- <script type="text/javascript">
+@*<script type="text/javascript">
 
-     $(document).ready(function () {
-         $(".pageDataLink").click(function () {
-             var url = $(this).attr("data-href");
-             if (url != "" || url != undefined) {
-                 GetData(url);
-             }
-         });
-     });
+    $(document).ready(function () {
+        $(".pageDataLink").click(function () {
+            var url = $(this).attr("data-href");
+            if (url != "" || url != undefined) {
+                GetData(url);
+            }
+        });
+    });
+</script>*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".pageDataLink").click(function () {           
+            var url = $(this).attr("data-href");
+            if (url !== undefined && url !== "") {
+                GetData(url);
+            }
+        });
+
+        function GetData(dUrl) {
+            //showLoader();
+            $.ajax({
+                url: dUrl,
+                data: {
+                    //minimumPrice: priceSlider.slider("values", 0),
+                    //maximumPrice: priceSlider.slider("values", 1)
+                }
+            })
+                .done(function (response) {
+                    $("#productsDiv").html(response);
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX request failed:", textStatus, errorThrown);
+                    alert("FAIL"); // Adjust error handling as needed
+                })
+                .always(function () {
+                    //hideLoader();
+                });
+        }
+    });
 </script>

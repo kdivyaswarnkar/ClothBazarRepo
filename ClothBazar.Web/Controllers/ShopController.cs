@@ -1,4 +1,5 @@
 ﻿using ClothBazar.Services;
+using ClothBazar.Web.Code;
 using ClothBazar.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -6,13 +7,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace ClothBazar.Web.Controllers
 {
  //   [Authorize]
     public class ShopController : Controller
-    {
-       
-        public ActionResult Index(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy,int? pageNo)
+    {     
+        public ActionResult Index(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy, int? pageNo)
         {
             var pageSize = ConfigurationsService.Instance.ShopPageSize();
             ShopViewModel model = new ShopViewModel();
