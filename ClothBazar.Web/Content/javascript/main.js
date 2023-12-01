@@ -381,16 +381,17 @@
       });
     };
 
-    function hideLoader() {
+    var hideLoader = function() {
         $(".loader").fadeOut();
         $("#loading-overlay").delay(500).fadeOut('slow');
-    };
+    }
 
-    function showLoader() {
+    var showLoader = function() {
         $(".loader").fadeIn();
         $("#loading-overlay").delay(500).fadeIn('slow');
-    };
+    }
 
+   
 
     //var flatPrice = function() {
     //    if( $().slider ) {
