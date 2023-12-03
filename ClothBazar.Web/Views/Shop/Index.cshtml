@@ -118,7 +118,7 @@
         });
 
         function GetData(dUrl) {
-            showLoader();
+           // showLoader();
             $.ajax({
                 url: dUrl,
                 data: {
@@ -134,7 +134,7 @@
                     alert("FAIL"); // Adjust error handling as needed
                 })
                 .always(function () {
-                    hideLoader();
+                   // hideLoader();
                 });
         }
 
