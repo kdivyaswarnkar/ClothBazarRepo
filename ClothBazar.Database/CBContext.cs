@@ -19,5 +19,7 @@ namespace ClothBazar.Database
         public DbSet<Product> Products { get; set; }
         public IEnumerable<object> FeaturedCategories { get; set; }
         public DbSet<Config> Configurations { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
     }
 }
