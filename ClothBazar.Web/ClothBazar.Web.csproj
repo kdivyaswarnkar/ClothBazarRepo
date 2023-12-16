@@ -176,6 +176,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
@@ -192,6 +193,10 @@
     <Compile Include="Migrations\202312030646208_addedNewPropertiesToUser.Designer.cs">
       <DependentUpon>202312030646208_addedNewPropertiesToUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202312160440510_test.cs" />
+    <Compile Include="Migrations\202312160440510_test.Designer.cs">
+      <DependentUpon>202312160440510_test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -200,6 +205,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CategoryViewModels.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\OrdersViewModels.cs" />
     <Compile Include="ViewModels\ProductViewModels.cs" />
     <Compile Include="ViewModels\SharedViewModels.cs" />
     <Compile Include="ViewModels\ShopViewModels.cs" />
@@ -1009,6 +1015,8 @@
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\Shop\FilterProducts.cshtml" />
     <Content Include="Views\Product\pract.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1046,6 +1054,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202312030646208_addedNewPropertiesToUser.resx">
       <DependentUpon>202312030646208_addedNewPropertiesToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312160440510_test.resx">
+      <DependentUpon>202312160440510_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
